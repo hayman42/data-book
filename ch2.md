@@ -276,11 +276,15 @@ type(namerfica, continent)
 ```
 - 질의
     - 함수 형태
-    - 재귀 호출 될 때 마다 해당하는 row가 테이블에 쌓임ㄴ
+    - 재귀 호출 될 때 마다 해당하는 row가 테이블에 쌓임
 ```
 within_recursive(Location, Name) :- name(Location, Name).
-...
+
+within_recursive(Location, Name) :- within(Location, Via),
+                                within_recursive(Via, Name).
+
 migrated(Name, BornIn, LivingIn) :- name(Person, Name),
+                                born_in(Person, BornLoc),
 ...
 
 ?- migrated(Who, 'United States', 'Europe')
@@ -294,3 +298,7 @@ migrated(Name, BornIn, LivingIn) :- name(Person, Name),
 - 문서/DB의 공통점은 스키마 유연성
     - 스키마가 Write에 필요한지 Read에 필요한지에 따라 유연성 달라짐
 - 각 데이터 모델마다 고유의 질의 언어 혹은 프레임워크 제공
+- 다양한 데이터 모델
+    - genome 데이터
+    - 입자 물리학
+    - full-text 검색
